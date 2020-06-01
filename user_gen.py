@@ -41,7 +41,11 @@ class user:
     self.email = self.__generate_email()
     
   def __str__(self):
-    return self.firstname + " " + self.surname + " " + self.username + " " + self.email
+    return "----------------\n" +\
+      "name: " + self.firstname + " " + self.surname + "\n" +\
+      "user pass: " + self.username + " " + self.password +"\n" +\
+      "email:" + self.email +\
+      "\n----------------"
  
   def __generate_user(self):
     choice = random.randint(0,8)
@@ -72,8 +76,8 @@ class user:
       return self.surname.lower() + str(self.birthyear*random.randint(0,50)) + random.choice(specialchars)
     elif(choice < 5):
       return random.choice(nouns).capitalize() + random.choice(specialchars) + str(self.birthyear)
-    else
-      return random.choice(nouns).capitalize + random.choice(nouns)
+    else:
+      return random.choice(nouns).capitalize() + random.choice(nouns)
     
   def __generate_email(self):
     return self.username + random.choice(providers)
