@@ -5,6 +5,7 @@ surnames = []
 firstnames = []
 providers = []
 specialchars = ['.','_','-','!']
+nouns = []
 
 firstname_file = open("data/firstnames.csv")
 firstname_csv = csv.reader(firstname_file)
@@ -15,6 +16,9 @@ surname_csv = csv.reader(surname_file)
 providers_file = open("data/emailproviders.csv")
 providers_csv = csv.reader(providers_file)
 
+nouns_file = open("data/nounlist.csv")
+nouns_csv = csv.reader(nouns_file)
+
 for i in surname_csv:
   surnames.append(str(i)[2:-2].lower().capitalize())
   
@@ -23,6 +27,9 @@ for i in firstname_csv:
   
 for i in providers_csv:
   providers.append(str(i)[2:-2].lower().capitalize())
+  
+for i in nouns_csv:
+  nouns.append(str(i)[2:-2])
 
 class user:
   def __init__(self):
@@ -54,7 +61,19 @@ class user:
       return str(self.birthyear*random.randint(0,50)) + self.firstname.lower()
    
   def __generate_pass(self):
-    return "password"
+    choice = random.randint(0,6)
+    if(choice < 1):
+      return random.choice(nouns) + str(self.birthyear*random.randint(0,50)) 
+    elif(choice < 2):
+      return random.choice(nouns) + random.choice(nouns) 
+    elif(choice < 3):
+      return random.choice(nouns) + str(self.birthyear) + random.choice(specialchars)
+    elif(choice < 4):
+      return self.surname.lower() + str(self.birthyear*random.randint(0,50)) + random.choice(specialchars)
+    elif(choice < 5):
+      return random.choice(nouns).capitalize() + random.choice(specialchars) + str(self.birthyear)
+    else
+      return random.choice(nouns).capitalize + random.choice(nouns)
     
   def __generate_email(self):
     return self.username + random.choice(providers)
